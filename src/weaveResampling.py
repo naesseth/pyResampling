@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# This version by Johan Dahlin
 import numpy as np
 import scipy.weave as weave
 

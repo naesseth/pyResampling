@@ -13,9 +13,15 @@ def resampling(np.ndarray[np.float64_t, ndim=1] w, scheme='multinomial'):
     cdef np.ndarray[np.int_t, ndim=1] Ni = np.arange(N, dtype=np.int)
     
     if scheme == 'multinomial':
-        w /= np.sum(w)
         bins = np.cumsum(w)
         ind = np.arange(N)[np.digitize(random_sample(N), bins)]
+        # Slower
+        #U = np.random.rand(N)
+        #for i  in range(N):
+        #    j = 0
+        #    while bins[j] < U[i] and j < N-1:
+        #        j += 1
+        #    ind[i] = j
     elif scheme == 'residual':
         R = np.sum( np.floor(N * w).astype(int) )
         if R == N:
@@ -27,11 +33,23 @@ def resampling(np.ndarray[np.float64_t, ndim=1] w, scheme='multinomial'):
                 ind[j:j+Ni[i]] = i
                 j += Ni[i]
     elif scheme == 'stratified':
-        U = (np.arange(N)+np.random.rand(N))/N
+        U = ind.astype(float)/N
+        U += np.random.rand(N)/N
         bins = np.cumsum(w)
-        ind = ind[np.digitize(U, bins)]
+        for i in range(N):
+            while bins[j] < U[i] and j < N-1:
+                j += 1
+            ind[i] = j
+        #ind = ind[np.digitize(U, bins)]
     elif scheme == 'systematic':
-        U = (np.arange(N) + np.random.rand(1))/N
+        U = ind.astype(float)/N
+        U += np.random.rand(1)/N
         bins = np.cumsum(w)
-        ind = ind[np.digitize(U, bins)]
+        for i in range(N):
+            while bins[j] < U[i] and j < N-1:
+                j += 1
+            ind[i] = j
+        #ind = ind[np.digitize(U, bins)]
+    else:
+        raise Exception("No such resampling scheme.")
     return ind 

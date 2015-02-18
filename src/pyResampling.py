@@ -1,11 +1,10 @@
 #!/usr/bin/python
 import numpy as np
-from numpy.random import random_sample
 
 def discreteSampling(weights, domain, nrSamples):
     weights /= np.sum(weights)
     bins = np.cumsum(weights)
-    return domain[np.digitize(random_sample(nrSamples), bins)]
+    return domain[np.digitize(np.random.random_sample(nrSamples), bins)]
 
 def resampling(w, scheme='mult'):
     """

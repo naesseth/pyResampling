@@ -1,7 +1,8 @@
 import numpy as np
 cimport numpy as np
 from numpy.random import random_sample
-
+cimport cython
+@cython.boundscheck(False) # turn of bounds-checking for entire function
 def resampling(np.ndarray[np.float64_t, ndim=1] w, scheme='multinomial'):
     cdef int N = w.shape[0]
     cdef int j = 0

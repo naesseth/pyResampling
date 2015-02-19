@@ -9,15 +9,11 @@ Welcome to pyResampling's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
 
-.. automodule:: src
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-
+   cyResampling
+   pyResampling
+   weaveResampling
 
 Indices and tables
 ==================

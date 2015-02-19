@@ -3,12 +3,21 @@ import numpy as np
 cimport numpy as np
 cimport cython
 @cython.boundscheck(False) # turn of bounds-checking for entire function
+@cython.embedsignature(True) 
 def resampling(np.ndarray[np.float64_t, ndim=1] w, scheme='multinomial'):
-    """ Resample a particle system of size N to keep most promising weights.
+    r"""Resample a particle system of size N to keep most promising weights.
         
-    Keyword arguments:
-    w       -- numpy 1D array of non-negative weights, size N.
-    scheme  -- resampling scheme: multinomial, residual, stratified, systematic
+    Parameters
+    ----------
+    w : 1-D array_like, float
+        Numpy 1D array of non-negative weights, size N.
+    scheme : 
+        Resampling scheme: multinomial, residual, stratified, systematic
+        
+    Returns
+    -------
+    ind : 1-D array_like
+        Indices of resampled particles.
     """
     cdef int N = w.shape[0]
     cdef int j = 0

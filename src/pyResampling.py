@@ -2,29 +2,60 @@
 import numpy as np
 
 def discreteSampling(weights, domain, nrSamples):
+    r"""Samples from a discrete probability distribution.
+    
+    Parameters
+    ----------
+    weights : 1-D array_like
+        Probability mass function.
+    domain : 1-D array_like
+        Categories or indices.
+    nrSamples : int
+        Number of samples.
+        
+    Returns
+    -------
+    domain : 1-D array_like
+        Sampled categories.
+        
+    Examples
+    --------
+    >>> w = np.random.rand(10)
+    >>> w /= np.sum(w)
+    >>> ind = discreteSampling(w, np.arange(10), 2)
+    """
     weights /= np.sum(weights)
     bins = np.cumsum(weights)
     return domain[np.digitize(np.random.random_sample(nrSamples), bins)]
 
 def resampling(w, scheme='mult'):
-    """
-    Resampling of particle indices, assume M=N.
+    r"""Resampling of particle indices.
     
     Parameters
     ----------
     w : 1-D array_like
-    Normalized weights
+        Normalized weights
     scheme : string
-    Resampling scheme to use {mult, res, strat, sys}:
-    mult - Multinomial resampling
-    res - Residual resampling
-    strat - Stratified resampling
-    sys - Systematic resampling
+        Resampling scheme to use:
+        
+        mult : Multinomial resampling
+        
+        res : Residual resampling
+        
+        strat : Stratified resampling
+        
+        sys : Systematic resampling
     
-    Output
-    ------
+    Returns
+    -------
     ind : 1-D array_like
-    Indices of resampled particles.
+        Indices of resampled particles.
+        
+    Examples
+    --------
+    >>> w = np.random.rand(10)
+    >>> w /= np.sum(w)
+    >>> ind = resampling(w, scheme='res')
     """
      
     N = w.shape[0]

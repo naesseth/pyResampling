@@ -1,4 +1,4 @@
-Pure python resampling algorithms
+Pure Python resampling algorithms
 ========================================
 
 .. automodule:: pyResampling

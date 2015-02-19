@@ -1,4 +1,4 @@
-Resampling algorithms using weave (embedding C)
+Resampling algorithms using Weave
 ========================================
 
 .. automodule:: weaveResampling
